@@ -168,16 +168,11 @@ public class Login_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtkullanici1ActionPerformed
 
     private void btnGirisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGirisActionPerformed
-        try {
-            Giris();
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
+
     }//GEN-LAST:event_btnGirisActionPerformed
 
     private void btnkayitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkayitActionPerformed
-        register_screen register = new register_screen();
-        register.setVisible(true); // diğer ekrana geçiş
+
     }//GEN-LAST:event_btnkayitActionPerformed
 
     private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
