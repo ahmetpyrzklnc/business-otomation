@@ -163,7 +163,8 @@ public class Login_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGirisActionPerformed
 
     private void btnkayitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkayitActionPerformed
-
+        Register_screen screen = new Register_screen();
+        screen.setVisible(true);
     }//GEN-LAST:event_btnkayitActionPerformed
 
     private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
