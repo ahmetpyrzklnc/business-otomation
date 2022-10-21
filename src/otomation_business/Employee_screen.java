@@ -311,8 +311,8 @@ public class Employee_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_btguncelleActionPerformed
 
     private void btnAnasayfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnasayfaActionPerformed
-    Home_page page = new Home_page();
-    page.setVisible(true);
+      Home_page page = new Home_page();
+      page.setVisible(true);
     }//GEN-LAST:event_btnAnasayfaActionPerformed
 
     
