@@ -2,10 +2,12 @@
 package otomation_business;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -62,6 +64,36 @@ public class Employee_screen extends javax.swing.JFrame {
         }
 
         return employee;
+    }
+    
+    public void Insert() {
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = "INSERT INTO `business_otomation`.`employee` (`employee_name`, `employee_lastname`, `employee_departmant`, `employee_salary`)"
+                    + "VALUES (?,?,?,?);";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, txtAdEkle.getText());
+            statement.setString(2, txtSoyadEkle.getText());
+            statement.setString(3, txtDepartmanEkle.getText());
+            statement.setInt(4, Integer.valueOf(txtmaasEkle.getText()));
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Oluştu.");
+            populateTable();
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+
+            }
+        }
     }
 
 
@@ -358,7 +390,7 @@ public class Employee_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSilActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
-        
+       Insert();
     }//GEN-LAST:event_btnekleActionPerformed
 
     private void btguncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btguncelleActionPerformed
