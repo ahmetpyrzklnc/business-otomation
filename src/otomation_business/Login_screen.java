@@ -1,11 +1,48 @@
 package otomation_business;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 
 public class Login_screen extends javax.swing.JFrame {
 
 
     public Login_screen() {
         initComponents();
+    }
+    
+    public void Login() throws SQLException{
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+        ResultSet resultSet;
+
+        try {
+            connection = helper.getConnection();
+            String sql = "SELECT * FROM business_otomation.login where `login_user` = ? and `login_password` = ?;";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, txtkullanici1.getText());
+            statement.setString(2, jPasswordField.getText());
+
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                Home_page home = new Home_page();
+                home.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Kullanıcı adınız veya şifreniz yanlış.");
+            }
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();;
+            connection.close();;
+        }
     }
 
 
@@ -159,7 +196,11 @@ public class Login_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtkullanici1ActionPerformed
 
     private void btnGirisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGirisActionPerformed
-
+        try {
+            Login();
+        } catch (SQLException ex) {
+            
+        }
     }//GEN-LAST:event_btnGirisActionPerformed
 
     private void btnkayitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkayitActionPerformed
