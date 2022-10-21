@@ -128,7 +128,8 @@ public class Home_page extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStokActionPerformed
-
+        Stock_screen screen = new Stock_screen();
+        screen.setVisible(true);
     }//GEN-LAST:event_btnStokActionPerformed
 
     private void btncalisanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalisanActionPerformed
