@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Distrubutor_screen extends javax.swing.JFrame {
 
@@ -118,7 +120,7 @@ public class Distrubutor_screen extends javax.swing.JFrame {
             connection.close();
         }
     }
-    
+
     public void Delete() throws SQLException {
         String id;
 
@@ -374,7 +376,10 @@ public class Distrubutor_screen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtDistrubutorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDistrubutorKeyReleased
-
+        String arama = txtDistrubutor.getText();
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+        list_distrubutor.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(arama));
     }//GEN-LAST:event_txtDistrubutorKeyReleased
 
     private void list_distrubutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_distrubutorMouseClicked
@@ -388,7 +393,7 @@ public class Distrubutor_screen extends javax.swing.JFrame {
         try {
             Delete();
         } catch (SQLException ex) {
-            
+
         }
     }//GEN-LAST:event_btnSilActionPerformed
 
