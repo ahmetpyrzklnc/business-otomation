@@ -92,6 +92,36 @@ public class Stock_screen extends javax.swing.JFrame {
         }
     }
 
+    public void Uptade() throws SQLException {
+        String id, name, model, price, amount;
+
+        id = lblkod.getText();
+        name = txtAdGuncelle.getText();
+        model = txtModelGuncelle.getText();
+        price = txtfiyatguncelle.getText();
+        amount = txtStokGuncelle.getText();
+
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = ("UPDATE `business_otomation`.`stock_amount` SET `stock_amount_name` = '" + name + "', `stock_amount_model` = '" + model + "', `stock_amount_price` = '" + price + "', `stock_amount_stock` = '" + amount + "' WHERE (`stock_amount_id` = '" + id + "');");
+            statement = connection.prepareStatement(sql);
+
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Güncellendi.");
+            populateTable();
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -410,7 +440,7 @@ public class Stock_screen extends javax.swing.JFrame {
         try {
             Insert();
         } catch (SQLException ex) {
-            
+
         }
     }//GEN-LAST:event_btnekleActionPerformed
 
@@ -423,7 +453,11 @@ public class Stock_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfiyatguncelleActionPerformed
 
     private void btnguncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguncelleActionPerformed
+        try {
+            Uptade();
+        } catch (SQLException ex) {
 
+        }
     }//GEN-LAST:event_btnguncelleActionPerformed
 
     private void txtStokEkleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStokEkleActionPerformed
@@ -459,7 +493,11 @@ public class Stock_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfiyatEkleActionPerformed
 
     private void list_StockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_StockMouseClicked
-
+        lblkod.setText(model.getValueAt(list_Stock.getSelectedRow(), 0).toString());
+        txtAdGuncelle.setText(model.getValueAt(list_Stock.getSelectedRow(), 1).toString());
+        txtModelGuncelle.setText(model.getValueAt(list_Stock.getSelectedRow(), 2).toString());
+        txtfiyatguncelle.setText(model.getValueAt(list_Stock.getSelectedRow(), 3).toString());
+        txtStokGuncelle.setText(model.getValueAt(list_Stock.getSelectedRow(), 4).toString());
     }//GEN-LAST:event_list_StockMouseClicked
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
