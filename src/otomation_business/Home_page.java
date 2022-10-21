@@ -142,7 +142,8 @@ public class Home_page extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMüsteriActionPerformed
 
     private void btnsaticiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaticiActionPerformed
-
+       Distrubutor_screen screen = new Distrubutor_screen();
+       screen.setVisible(true);
     }//GEN-LAST:event_btnsaticiActionPerformed
 
     private void btncikisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncikisActionPerformed
