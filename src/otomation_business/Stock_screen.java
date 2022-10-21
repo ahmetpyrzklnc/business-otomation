@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Stock_screen extends javax.swing.JFrame {
 
@@ -121,7 +123,7 @@ public class Stock_screen extends javax.swing.JFrame {
         }
 
     }
-    
+
     public void Delete() throws SQLException {
         String id;
 
@@ -510,7 +512,10 @@ public class Stock_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtStokActionPerformed
 
     private void txtStokKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStokKeyReleased
-
+        String ara = txtStok.getText();
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+        list_Stock.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(ara));
     }//GEN-LAST:event_txtStokKeyReleased
 
     private void txtfiyatEkleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfiyatEkleActionPerformed
@@ -529,7 +534,7 @@ public class Stock_screen extends javax.swing.JFrame {
         try {
             Delete();
         } catch (SQLException ex) {
-            
+
         }
     }//GEN-LAST:event_btnSilActionPerformed
 
