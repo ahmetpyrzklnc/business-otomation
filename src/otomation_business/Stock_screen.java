@@ -1,12 +1,68 @@
-
 package otomation_business;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Stock_screen extends javax.swing.JFrame {
+    
+    DefaultTableModel model;
 
- 
     public Stock_screen() {
         initComponents();
+        populateTable();
+    }
+
+    public void populateTable() {
+
+        model = (DefaultTableModel) list_Stock.getModel();
+        model.setRowCount(0);
+
+        try {
+            ArrayList<StockManager> stock = getStock();
+            for (StockManager stock_ : stock) {
+                Object[] row = {stock_.getId(), stock_.getStock_amount_name(), stock_.getStock_amount_model(), stock_.getStock_amount_price(), stock_.getStock_amount_stock()};
+
+                model.addRow(row);
+            }
+        } catch (SQLException exception) {
+
+        }
+
+    }
+
+    public ArrayList<StockManager> getStock() throws SQLException {
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        Statement statement = null;
+        ResultSet resultSet;
+        ArrayList<StockManager> stock = null;
+
+        try {
+            connection = helper.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM business_otomation.stock_amount;");
+            stock = new ArrayList<StockManager>();
+
+            while (resultSet.next()) {
+                stock.add(new StockManager(resultSet.getInt("stock_amount_id"),
+                        resultSet.getString("stock_amount_name"),
+                        resultSet.getString("stock_amount_model"),
+                        resultSet.getInt("stock_amount_price"),
+                        resultSet.getInt("stock_amount_stock")));
+            }
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+
+        return stock;
     }
 
     @SuppressWarnings("unchecked")
@@ -319,12 +375,12 @@ public class Stock_screen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnasayfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnasayfaActionPerformed
-       Home_page page = new Home_page();
-       page.setVisible(true);
+        Home_page page = new Home_page();
+        page.setVisible(true);
     }//GEN-LAST:event_btnAnasayfaActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
- 
+
     }//GEN-LAST:event_btnekleActionPerformed
 
     private void txtAdGuncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdGuncelleActionPerformed
@@ -379,7 +435,6 @@ public class Stock_screen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSilActionPerformed
 
- 
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
