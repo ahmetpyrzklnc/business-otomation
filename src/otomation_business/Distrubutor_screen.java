@@ -1,4 +1,3 @@
-
 package otomation_business;
 
 import java.sql.Connection;
@@ -7,22 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 public class Distrubutor_screen extends javax.swing.JFrame {
 
     DefaultTableModel model;
-    
+
     public Distrubutor_screen() {
         initComponents();
         populateTable();
     }
-    
-        public void populateTable() {
+
+    public void populateTable() {
         model = (DefaultTableModel) list_distrubutor.getModel();
         model.setRowCount(0);
 
@@ -67,7 +63,7 @@ public class Distrubutor_screen extends javax.swing.JFrame {
 
         return distrubutor;
     }
-    
+
     public void Insert() throws SQLException {
         Connection connection = null;
         DbHelper helper = new DbHelper();
@@ -94,6 +90,34 @@ public class Distrubutor_screen extends javax.swing.JFrame {
         }
     }
 
+    public void Uptade() throws SQLException {
+        String id, name, city, gsm;
+
+        id = lblidGuncelle.getText();
+        name = txtSirketGuncelle.getText();
+        city = txtSehirGuncelle.getText();
+        gsm = txtGsmGuncelle.getText();
+
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = ("UPDATE `business_otomation`.`distrubutor` SET `distrubutor_name` = '" + name + "', `distrubutor_city` = '" + city + "', `distrubutor_gsm` = '" + gsm + "' WHERE (`distrubutor_id` = '" + id + "');");
+            statement = connection.prepareStatement(sql);
+
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Güncellendi.");
+            populateTable();
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -330,30 +354,36 @@ public class Distrubutor_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDistrubutorKeyReleased
 
     private void list_distrubutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_distrubutorMouseClicked
-
+        lblidGuncelle.setText(model.getValueAt(list_distrubutor.getSelectedRow(), 0).toString());
+        txtSirketGuncelle.setText(model.getValueAt(list_distrubutor.getSelectedRow(), 1).toString());
+        txtSehirGuncelle.setText(model.getValueAt(list_distrubutor.getSelectedRow(), 2).toString());
+        txtGsmGuncelle.setText(model.getValueAt(list_distrubutor.getSelectedRow(), 3).toString());
     }//GEN-LAST:event_list_distrubutorMouseClicked
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
- 
+
     }//GEN-LAST:event_btnSilActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
         try {
             Insert();
         } catch (SQLException ex) {
-            
+
         }
     }//GEN-LAST:event_btnekleActionPerformed
 
     private void btguncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btguncelleActionPerformed
+        try {
+            Uptade();
+        } catch (SQLException ex) {
 
+        }
     }//GEN-LAST:event_btguncelleActionPerformed
 
     private void btnAnasayfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnasayfaActionPerformed
         Home_page page = new Home_page();
         page.setVisible(true);
     }//GEN-LAST:event_btnAnasayfaActionPerformed
-
 
     public static void main(String args[]) {
 
