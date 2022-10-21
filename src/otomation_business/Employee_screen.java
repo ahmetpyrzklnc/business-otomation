@@ -127,6 +127,36 @@ public class Employee_screen extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void Delete() {
+        String id;
+
+        id = lblidGuncelle.getText();
+
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = ("DELETE FROM `business_otomation`.`employee` WHERE `employee_id` = '" + id + "'");
+            statement = connection.prepareStatement(sql);
+
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Silindi.");
+            populateTable();
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -421,7 +451,7 @@ public class Employee_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_list_calisanMouseClicked
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
-
+        Delete();
     }//GEN-LAST:event_btnSilActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
