@@ -1,12 +1,46 @@
 
 package otomation_business;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 
 public class Register_screen extends javax.swing.JFrame {
 
   
     public Register_screen() {
         initComponents();
+    }
+    
+        public void Insert() throws SQLException {
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = "INSERT INTO `business_otomation`.`login` (`login_name`, `login_surname`, `login_user`, `login_password`)"
+                    + " VALUES (?,?,?,?);";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, txtAdiniz.getText());
+            statement.setString(2, txtSoyAdiniz.getText());
+            statement.setString(3, txtKullaniciAdi.getText());
+            statement.setString(4, txtSifre.getText());
+
+            statement.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Kayıt Başarılıyla oluşturuldu...");
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();;
+            connection.close();;
+        }
+
     }
 
 
@@ -168,7 +202,11 @@ public class Register_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtKullaniciAdiActionPerformed
 
     private void btnKayitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKayitActionPerformed
-
+        try {
+            Insert();
+        } catch (SQLException ex) {
+            
+        }
     }//GEN-LAST:event_btnKayitActionPerformed
 
     private void btnAnasayfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnasayfaActionPerformed
