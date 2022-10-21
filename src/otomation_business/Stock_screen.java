@@ -121,6 +121,31 @@ public class Stock_screen extends javax.swing.JFrame {
         }
 
     }
+    
+    public void Delete() throws SQLException {
+        String id;
+
+        id = lblkod.getText();
+
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = ("DELETE FROM `business_otomation`.`stock_amount` WHERE (`stock_amount_id` = '" + id + "');");
+            statement = connection.prepareStatement(sql);
+
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Silindi");
+            populateTable();
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -501,7 +526,11 @@ public class Stock_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_list_StockMouseClicked
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
-
+        try {
+            Delete();
+        } catch (SQLException ex) {
+            
+        }
     }//GEN-LAST:event_btnSilActionPerformed
 
     public static void main(String args[]) {
