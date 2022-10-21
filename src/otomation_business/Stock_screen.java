@@ -319,7 +319,8 @@ public class Stock_screen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnasayfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnasayfaActionPerformed
-
+       Home_page page = new Home_page();
+       page.setVisible(true);
     }//GEN-LAST:event_btnAnasayfaActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
