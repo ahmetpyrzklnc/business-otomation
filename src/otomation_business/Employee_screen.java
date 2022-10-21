@@ -1,4 +1,3 @@
-
 package otomation_business;
 
 import java.sql.Connection;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Employee_screen extends javax.swing.JFrame {
 
     DefaultTableModel model;
@@ -19,8 +17,8 @@ public class Employee_screen extends javax.swing.JFrame {
         initComponents();
         populateTable();
     }
-    
-     public void populateTable() {
+
+    public void populateTable() {
 
         model = (DefaultTableModel) list_calisan.getModel();
         model.setRowCount(0);
@@ -65,7 +63,7 @@ public class Employee_screen extends javax.swing.JFrame {
 
         return employee;
     }
-    
+
     public void Insert() {
         Connection connection = null;
         DbHelper helper = new DbHelper();
@@ -96,6 +94,39 @@ public class Employee_screen extends javax.swing.JFrame {
         }
     }
 
+    public void Uptade() {
+        String id, name, surname, departmant, salary;
+
+        id = lblidGuncelle.getText();
+        name = txtAdGuncelle.getText();
+        surname = txtSoyadGuncelle.getText();
+        departmant = txtDepartmanGuncelle.getText();
+        salary = txtmaasGuncelle.getText();
+
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = ("UPDATE `business_otomation`.`employee` SET `employee_name` = '" + name + "', `employee_lastname` = '" + surname + "', `employee_departmant` = '" + departmant + "', `employee_salary` = '" + salary + "' WHERE (`employee_id` = '" + id + "');");
+            statement = connection.prepareStatement(sql);
+
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Güncellendi");
+            populateTable();
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -382,27 +413,30 @@ public class Employee_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCalisanKeyReleased
 
     private void list_calisanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_calisanMouseClicked
- 
+        lblidGuncelle.setText(model.getValueAt(list_calisan.getSelectedRow(), 0).toString());
+        txtAdGuncelle.setText(model.getValueAt(list_calisan.getSelectedRow(), 1).toString());
+        txtSoyadGuncelle.setText(model.getValueAt(list_calisan.getSelectedRow(), 2).toString());
+        txtDepartmanGuncelle.setText(model.getValueAt(list_calisan.getSelectedRow(), 3).toString());
+        txtmaasGuncelle.setText(model.getValueAt(list_calisan.getSelectedRow(), 4).toString());
     }//GEN-LAST:event_list_calisanMouseClicked
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
-       
+
     }//GEN-LAST:event_btnSilActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
-       Insert();
+        Insert();
     }//GEN-LAST:event_btnekleActionPerformed
 
     private void btguncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btguncelleActionPerformed
-       
+        Uptade();
     }//GEN-LAST:event_btguncelleActionPerformed
 
     private void btnAnasayfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnasayfaActionPerformed
-      Home_page page = new Home_page();
-      page.setVisible(true);
+        Home_page page = new Home_page();
+        page.setVisible(true);
     }//GEN-LAST:event_btnAnasayfaActionPerformed
 
-    
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
