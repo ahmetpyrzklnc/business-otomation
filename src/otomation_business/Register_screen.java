@@ -172,7 +172,8 @@ public class Register_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKayitActionPerformed
 
     private void btnAnasayfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnasayfaActionPerformed
-
+        Login_screen screen = new Login_screen();
+        screen.setVisible(true);
     }//GEN-LAST:event_btnAnasayfaActionPerformed
 
     private void txtAdinizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdinizActionPerformed
