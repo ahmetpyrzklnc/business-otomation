@@ -1,14 +1,16 @@
 package otomation_business;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Stock_screen extends javax.swing.JFrame {
-    
+
     DefaultTableModel model;
 
     public Stock_screen() {
@@ -63,6 +65,31 @@ public class Stock_screen extends javax.swing.JFrame {
         }
 
         return stock;
+    }
+
+    public void Insert() throws SQLException {
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = "INSERT INTO `business_otomation`.`stock_amount` (`stock_amount_name`, `stock_amount_model`, `stock_amount_price`, `stock_amount_stock`)"
+                    + "VALUES (?,?,?,?);";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, txtAdEkle.getText());
+            statement.setString(2, txtModelEkle.getText());
+            statement.setInt(3, Integer.valueOf(txtfiyatEkle.getText()));
+            statement.setInt(4, Integer.valueOf(txtStokEkle.getText()));
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Gerçekleşti.");
+            populateTable();
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -380,7 +407,11 @@ public class Stock_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnasayfaActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
-
+        try {
+            Insert();
+        } catch (SQLException ex) {
+            
+        }
     }//GEN-LAST:event_btnekleActionPerformed
 
     private void txtAdGuncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdGuncelleActionPerformed
