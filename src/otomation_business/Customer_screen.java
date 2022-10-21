@@ -117,6 +117,31 @@ public class Customer_screen extends javax.swing.JFrame {
             connection.close();
         }
     }
+    
+        public void Delete() throws SQLException {
+        String id;
+
+        id = lblidGuncelle.getText();
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = ("DELETE FROM `business_otomation`.`customer` WHERE `customer_id` = '" + id + "'");
+            statement = connection.prepareStatement(sql);
+
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Silindi.");
+            populateTable();
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -356,7 +381,11 @@ public class Customer_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_list_musteriMouseClicked
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
-
+        try {
+            Delete();
+        } catch (SQLException ex) {
+            
+        }
     }//GEN-LAST:event_btnSilActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
