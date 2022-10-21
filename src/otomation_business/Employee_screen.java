@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Employee_screen extends javax.swing.JFrame {
 
@@ -127,7 +129,7 @@ public class Employee_screen extends javax.swing.JFrame {
             }
         }
     }
-    
+
     public void Delete() {
         String id;
 
@@ -439,7 +441,10 @@ public class Employee_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCalisanActionPerformed
 
     private void txtCalisanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCalisanKeyReleased
-
+        String arama = txtCalisan.getText();
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(model);
+        list_calisan.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(arama));
     }//GEN-LAST:event_txtCalisanKeyReleased
 
     private void list_calisanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_calisanMouseClicked
