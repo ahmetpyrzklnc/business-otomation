@@ -2,10 +2,14 @@
 package otomation_business;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -62,6 +66,32 @@ public class Distrubutor_screen extends javax.swing.JFrame {
         }
 
         return distrubutor;
+    }
+    
+    public void Insert() throws SQLException {
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = "INSERT INTO `business_otomation`.`distrubutor` (`distrubutor_name`, `distrubutor_city`, `distrubutor_gsm`)"
+                    + " VALUES (?,?,?);";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, txtSirketEkle.getText());
+            statement.setString(2, txtSehirEkle.getText());
+            statement.setInt(3, Integer.valueOf(txtGsmEkle.getText()));
+
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Oluştu...");
+            populateTable();
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
     }
 
 
@@ -308,7 +338,11 @@ public class Distrubutor_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSilActionPerformed
 
     private void btnekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnekleActionPerformed
-
+        try {
+            Insert();
+        } catch (SQLException ex) {
+            
+        }
     }//GEN-LAST:event_btnekleActionPerformed
 
     private void btguncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btguncelleActionPerformed
