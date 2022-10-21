@@ -86,9 +86,9 @@ public class Home_page extends javax.swing.JFrame {
                     .addComponent(btncalisan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnsatici, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMüsteri, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnStok, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnStok, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                    .addComponent(btnMüsteri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(56, 56, 56))
             .addGroup(layout.createSequentialGroup()
                 .addGap(195, 195, 195)
@@ -132,7 +132,8 @@ public class Home_page extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStokActionPerformed
 
     private void btncalisanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalisanActionPerformed
-
+        Employee_screen screen = new Employee_screen();
+        screen.setVisible(true);
     }//GEN-LAST:event_btncalisanActionPerformed
 
     private void btnMüsteriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMüsteriActionPerformed
