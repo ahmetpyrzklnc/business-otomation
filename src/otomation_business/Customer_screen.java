@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Customer_screen extends javax.swing.JFrame {
 
@@ -117,8 +119,8 @@ public class Customer_screen extends javax.swing.JFrame {
             connection.close();
         }
     }
-    
-        public void Delete() throws SQLException {
+
+    public void Delete() throws SQLException {
         String id;
 
         id = lblidGuncelle.getText();
@@ -371,7 +373,10 @@ public class Customer_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnasayfaActionPerformed
 
     private void txtMusteriKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMusteriKeyReleased
-
+        String ara = txtMusteri.getText();
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+        list_musteri.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(ara));
     }//GEN-LAST:event_txtMusteriKeyReleased
 
     private void list_musteriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_musteriMouseClicked
@@ -384,7 +389,7 @@ public class Customer_screen extends javax.swing.JFrame {
         try {
             Delete();
         } catch (SQLException ex) {
-            
+
         }
     }//GEN-LAST:event_btnSilActionPerformed
 
