@@ -37,6 +37,7 @@ public class Distrubutor_screen extends javax.swing.JFrame {
         txtGsmEkle = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Distrubutor");
 
         lblEkle4.setText("GSM:");
         lblEkle4.setToolTipText("");
