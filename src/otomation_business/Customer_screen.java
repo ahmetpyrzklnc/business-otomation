@@ -64,7 +64,7 @@ public class Customer_screen extends javax.swing.JFrame {
         return customer;
 
     }
-    
+
     public void Insert() throws SQLException {
         Connection connection = null;
         DbHelper helper = new DbHelper();
@@ -80,6 +80,34 @@ public class Customer_screen extends javax.swing.JFrame {
 
             int result = statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Oluştu.");
+            populateTable();
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+
+    public void Uptade() throws SQLException {
+        String id, name, surname;
+
+        id = lblidGuncelle.getText();
+        name = txtAdGuncelle.getText();
+        surname = txtSoyadGuncelle.getText();
+
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        PreparedStatement statement = null;
+
+        try {
+            connection = helper.getConnection();
+            String sql = ("UPDATE `business_otomation`.`customer` SET `customer_name` = '" + name + "', `customer_lastname` = '" + surname + "' WHERE (`customer_id` = '" + id + "');");
+            statement = connection.prepareStatement(sql);
+
+            int result = statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Kayıt Başarıyla Güncellendi.");
             populateTable();
 
         } catch (SQLException exception) {
@@ -322,7 +350,9 @@ public class Customer_screen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMusteriKeyReleased
 
     private void list_musteriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_musteriMouseClicked
-
+        lblidGuncelle.setText(model.getValueAt(list_musteri.getSelectedRow(), 0).toString());
+        txtAdGuncelle.setText(model.getValueAt(list_musteri.getSelectedRow(), 1).toString());
+        txtSoyadGuncelle.setText(model.getValueAt(list_musteri.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_list_musteriMouseClicked
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
@@ -333,12 +363,16 @@ public class Customer_screen extends javax.swing.JFrame {
         try {
             Insert();
         } catch (SQLException ex) {
-           
+
         }
     }//GEN-LAST:event_btnekleActionPerformed
 
     private void btguncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btguncelleActionPerformed
+        try {
+            Uptade();
+        } catch (SQLException ex) {
 
+        }
     }//GEN-LAST:event_btguncelleActionPerformed
 
     public static void main(String args[]) {
