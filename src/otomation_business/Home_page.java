@@ -138,7 +138,8 @@ public class Home_page extends javax.swing.JFrame {
     }//GEN-LAST:event_btncalisanActionPerformed
 
     private void btnMüsteriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMüsteriActionPerformed
-
+       Customer_screen screen = new Customer_screen();
+       screen.setVisible(true);
     }//GEN-LAST:event_btnMüsteriActionPerformed
 
     private void btnsaticiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaticiActionPerformed
