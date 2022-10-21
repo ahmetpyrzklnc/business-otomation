@@ -1,11 +1,67 @@
 
 package otomation_business;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 
 public class Distrubutor_screen extends javax.swing.JFrame {
 
+    DefaultTableModel model;
+    
     public Distrubutor_screen() {
         initComponents();
+        populateTable();
+    }
+    
+        public void populateTable() {
+        model = (DefaultTableModel) list_distrubutor.getModel();
+        model.setRowCount(0);
+
+        try {
+            ArrayList<DistrubutorManager> distrubutor = getDistrubutor();
+            for (DistrubutorManager distrubutors : distrubutor) {
+                Object[] row = {distrubutors.getDistrubutor_id(), distrubutors.getDistrubutor_name(), distrubutors.getDistrubutor_city(), distrubutors.getDistrubutor_gsm()};
+
+                model.addRow(row);
+            }
+        } catch (SQLException exception) {
+
+        }
+    }
+
+    public ArrayList<DistrubutorManager> getDistrubutor() throws SQLException {
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        Statement statement = null;
+        ResultSet resultSet;
+        ArrayList<DistrubutorManager> distrubutor = null;
+
+        try {
+            connection = helper.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM business_otomation.distrubutor;");
+            distrubutor = new ArrayList<DistrubutorManager>();
+
+            while (resultSet.next()) {
+                distrubutor.add(new DistrubutorManager(resultSet.getInt("distrubutor_id"),
+                        resultSet.getString("distrubutor_name"),
+                        resultSet.getString("distrubutor_city"),
+                        resultSet.getInt("distrubutor_gsm")
+                ));
+            }
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+
+        return distrubutor;
     }
 
 
