@@ -1,14 +1,68 @@
-
 package otomation_business;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Customer_screen extends javax.swing.JFrame {
 
     public Customer_screen() {
         initComponents();
+        populateTable();
     }
 
- 
+    DefaultTableModel model;
+
+    public void populateTable() {
+        model = (DefaultTableModel) list_musteri.getModel();
+        model.setRowCount(0);
+
+        try {
+            ArrayList<CustomerManager> customer = getCustomerManager();
+            for (CustomerManager customers : customer) {
+                Object[] row = {customers.getCustomer_id(), customers.getCustomer_name(), customers.getCustomer_lastname()};
+
+                model.addRow(row);
+            }
+        } catch (SQLException exception) {
+
+        }
+    }
+
+    public ArrayList<CustomerManager> getCustomerManager() throws SQLException {
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        Statement statement = null;
+        ResultSet resultSet;
+        ArrayList<CustomerManager> customer = null;
+
+        try {
+            connection = helper.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM business_otomation.customer;");
+            customer = new ArrayList<CustomerManager>();
+
+            while (resultSet.next()) {
+                customer.add(new CustomerManager(resultSet.getInt("customer_id"),
+                        resultSet.getString("customer_name"),
+                        resultSet.getString("customer_lastname")
+                ));
+            }
+
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+
+        return customer;
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -255,7 +309,6 @@ public class Customer_screen extends javax.swing.JFrame {
     private void btguncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btguncelleActionPerformed
 
     }//GEN-LAST:event_btguncelleActionPerformed
-
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
