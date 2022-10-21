@@ -1,12 +1,67 @@
 
 package otomation_business;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 
 public class Employee_screen extends javax.swing.JFrame {
 
+    DefaultTableModel model;
 
     public Employee_screen() {
         initComponents();
+        populateTable();
+    }
+    
+     public void populateTable() {
+
+        model = (DefaultTableModel) list_calisan.getModel();
+        model.setRowCount(0);
+        try {
+            ArrayList<EmployeeManager> employee = getEmployee();
+            for (EmployeeManager employe : employee) {
+                Object[] row = {employe.getId(), employe.getName(), employe.getSurname(), employe.getDepartman(), employe.getSalary()};
+
+                model.addRow(row);
+            }
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    public ArrayList<EmployeeManager> getEmployee() throws SQLException {
+        Connection connection = null;
+        DbHelper helper = new DbHelper();
+        Statement statement = null;
+        ResultSet resultSet;
+        ArrayList<EmployeeManager> employee = null;
+
+        try {
+            connection = helper.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM business_otomation.employee;");
+            employee = new ArrayList<EmployeeManager>();
+            while (resultSet.next()) {
+                employee.add(new EmployeeManager(resultSet.getInt("employee_id"),
+                        resultSet.getString("employee_name"),
+                        resultSet.getString("employee_lastname"),
+                        resultSet.getString("employee_departmant"),
+                        resultSet.getInt("employee_salary")
+                ));
+            }
+        } catch (SQLException exception) {
+            helper.showErrorMessage(exception);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+
+        return employee;
     }
 
 
