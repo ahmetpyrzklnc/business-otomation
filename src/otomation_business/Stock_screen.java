@@ -41,6 +41,7 @@ public class Stock_screen extends javax.swing.JFrame {
         btnSil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Stock ");
 
         lblEkle2.setText("Ürün Adı: ");
 
