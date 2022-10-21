@@ -232,7 +232,8 @@ public class Customer_screen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnasayfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnasayfaActionPerformed
-
+        Home_page page = new Home_page();
+        page.setVisible(true);
     }//GEN-LAST:event_btnAnasayfaActionPerformed
 
     private void txtMusteriKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMusteriKeyReleased
