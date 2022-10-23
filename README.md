@@ -250,4 +250,5 @@ We summarised briefly.
 
 <br>
 
-- <a href = ahmtklnc.software@gmail.com >You can reach me here.</a>
+<a href="mailto:ahmtklnc.software@gmail.com">You can reach me here!</a>
+
