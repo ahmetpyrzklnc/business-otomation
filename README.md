@@ -16,6 +16,8 @@
     </a> 
       <img alt="MySQL" src="https://www.vectorlogo.zone/logos/mysql/mysql-ar21.svg">
     </a> 
+      <img alt="VCS" src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg">
+    </a>
     &emsp;
 </p>
 
