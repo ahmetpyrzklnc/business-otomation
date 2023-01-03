@@ -240,7 +240,7 @@ We summarised briefly.
 |7          |Salih        |Dursun           |Yazılım            |8000           |
 |8          |Yağmur       |Kuru             |Yönetim            |1000           |
 |9          |Damla        |Güner            |Elektronik         |7200           |
-|11         |Ayşenur      |Sena             |Elektronik         |8000           |
+|11         |Ayşenur      |Yıldızdal        |Elektronik         |8000           |
 
 
 ---
